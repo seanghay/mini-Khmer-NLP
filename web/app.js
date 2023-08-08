@@ -1,5 +1,28 @@
 import * as ort from 'onnxruntime-web';
 
+async function downloadModelBuffer(update) {
+  const response = await fetch("/word_segmentation_model.onnx")
+  const reader = response.body.getReader()
+  const contentLength = +response.headers.get('Content-Length');
+  let receivedLength = 0;
+  let chunks = [];
+  while(true) {
+    const {done, value} = await reader.read();
+    if (done) break;
+    chunks.push(value);
+    receivedLength += value.length;
+    update(`${(Math.floor(10000 * receivedLength / contentLength) / 100).toFixed(2)}%`)
+  }
+
+  let chunksAll = new Uint8Array(receivedLength); // (4.1)
+  let position = 0;
+  for(let chunk of chunks) {
+    chunksAll.set(chunk, position); // (4.2)
+    position += chunk.length;
+  }
+  return chunksAll
+}
+
 function create_graphemes(text) {
 
   const regex = /([\u1780-\u17df]+)|([\u17e0-\u17e9]+)|(\s+)|([^\u1780-\u17ff\s]+)/gm
@@ -47,15 +70,18 @@ function create_graphemes(text) {
 }
 
 (async function () {
-
   const $tokens = document.querySelector("#tokens")
   const $textInput = document.querySelector("#text_input")
 
+  const modelBuffer = await downloadModelBuffer(p => {
+    $textInput.placeholder = `Downloading model and tokenizer… (${p})`
+  });
+
   const [tokenizers, session] = await Promise.all([
     fetch("/tokenizers.json").then(res => res.json()),
-    ort.InferenceSession.create("/word_segmentation_model.onnx"),
+    ort.InferenceSession.create(modelBuffer),
   ])
-
+  
   $textInput.disabled = false
   $tokens.disabled = false
   $textInput.placeholder = "Input"
