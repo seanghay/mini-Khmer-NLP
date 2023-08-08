@@ -11,7 +11,7 @@ async function downloadModelBuffer(update) {
     if (done) break;
     chunks.push(value);
     receivedLength += value.length;
-    update(`${(Math.floor(10000 * receivedLength / contentLength) / 100).toFixed(2)}%`)
+    update(`${(Math.min(Math.floor(10000 * receivedLength / contentLength) / 100, 100)).toFixed(2)}%`)
   }
 
   let chunksAll = new Uint8Array(receivedLength); // (4.1)
@@ -81,7 +81,7 @@ function create_graphemes(text) {
     fetch("/tokenizers.json").then(res => res.json()),
     ort.InferenceSession.create(modelBuffer),
   ])
-  
+
   $textInput.disabled = false
   $tokens.disabled = false
   $textInput.placeholder = "Input"
