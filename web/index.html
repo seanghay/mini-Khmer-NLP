@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Mini KhmerNLP</title>
+	</head>
+	<body
+		style="font-family: Arial, Helvetica, sans-serif; margin: 0; padding: 0"
+	>
+		<div style="margin: 0 auto; max-width: 720px; padding: 1rem">
+			<h2>Mini KhmerNLP</h2>
+			<p>A mini version of KhmerNLP with LSTM only.</p>
+			<label for="text_input">Input text</label>
+			<br />
+			<textarea
+				style="color: black; width: 100%; border: 1px solid black"
+				placeholder="Downloading model and tokenizer…"
+				cols="50"
+				rows="10"
+				id="text_input"
+				name="text_input"
+				disabled
+			></textarea>
+			<br />
+			<label for="tokens">Tokens:</label>
+			<br />
+			<textarea
+				readonly
+				style="color: darkcyan; width: 100%; border: 1px solid black"
+				placeholder="Tokens"
+				cols="50"
+				disabled
+				rows="10"
+				id="tokens"
+				name="tokens"
+			></textarea>
+			<a href="https://github.com/seanghay/mini-KhmerNLP">[View on GitHub]</a>
+		</div>
+		<script type="module" src="./app.js"></script>
+	</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "@seanghay/mini-khmer-nlp-web",
+  "type": "module",
+  "devDependencies": {
+    "vite": "^4.4.9",
+    "vite-plugin-static-copy": "^0.17.0"
+  },
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite"
+  },
+  "dependencies": {
+    "onnxruntime-web": "^1.15.1"
+  }
+}
