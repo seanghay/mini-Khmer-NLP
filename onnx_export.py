@@ -10,7 +10,7 @@ with open("tokenizers.json", "w") as f:
 
 torch.onnx.export(
     model,
-    torch.ones(1, 50, dtype=torch.int64),
+    torch.ones(1, 50, dtype=torch.int32),
     "word_segmentation_model.onnx",
     export_params=True,
     verbose=False,
