@@ -4,9 +4,12 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Mini KhmerNLP</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@450&display=swap" rel="stylesheet">
 	</head>
 	<body
-		style="font-family: Arial, Helvetica, sans-serif; margin: 0; padding: 0"
+		style="font-family: 'Kantumruy Pro', Arial, Helvetica, sans-serif; margin: 0; padding: 0"
 	>
 		<div style="margin: 0 auto; max-width: 720px; padding: 1rem">
 			<h2>Mini KhmerNLP</h2>
@@ -14,11 +17,12 @@
 			<label for="text_input">Input text</label>
 			<br />
 			<textarea
-				style="color: black; width: 100%; border: 1px solid black"
+				style="color: black; width: 100%; border: 1px solid black; font-family: inherit; font-size: 1.1rem;"
 				placeholder="Downloading model and tokenizer…"
 				cols="50"
 				rows="10"
 				id="text_input"
+				
 				name="text_input"
 				disabled
 			></textarea>
@@ -27,7 +31,7 @@
 			<br />
 			<textarea
 				readonly
-				style="color: darkcyan; width: 100%; border: 1px solid black"
+				style="color: darkcyan; width: 100%; border: 1px solid black; font-family: inherit; font-size: 1.1rem"
 				placeholder="Tokens"
 				cols="50"
 				disabled
