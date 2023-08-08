@@ -29,6 +29,7 @@ def tokenize(model, text):
 
   with torch.no_grad():
     inputs = torch.tensor(x).unsqueeze(0).long()
+    print(inputs)
     pred = model(inputs).tolist() 
     tokens = []
     for i, (grapheme, tag) in enumerate(zip(graphemes, pred)):
