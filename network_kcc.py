@@ -30,21 +30,19 @@ class KccRNN(nn.Module):
         self.dropout = nn.Dropout(drop_prob)
         self.fc = nn.Linear(n_hidden * 2, 1)
 
-    def forward(self, x, hidden):
+    def forward(self, x):
         """Forward pass through the network.
         These inputs are x, and the hidden/cell state `hidden`."""
-        embeds = self.word_embeddings(x)
-        r_output, hidden = self.lstm(embeds, hidden)
-        out = self.dropout(r_output)
-        out = out.contiguous().view(-1, self.n_hidden * 2)
-        out = self.fc(out)
-        return out.squeeze(), hidden
-
-    def init_hidden(self, batch_size):
-        """Initializes hidden state"""
+        batch_size = 1
         weight = next(self.parameters()).data
         hidden = (
             weight.new(self.n_layers * 2, batch_size, self.n_hidden).zero_(),
             weight.new(self.n_layers * 2, batch_size, self.n_hidden).zero_(),
         )
-        return hidden
+        hidden = tuple([each.data for each in hidden])
+        embeds = self.word_embeddings(x)
+        r_output, hidden = self.lstm(embeds, hidden)
+        out = self.dropout(r_output)
+        out = out.contiguous().view(-1, self.n_hidden * 2)
+        out = self.fc(out)
+        return nn.functional.sigmoid(out.squeeze())

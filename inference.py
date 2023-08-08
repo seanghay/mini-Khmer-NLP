@@ -10,7 +10,7 @@ def create_graphemes(text):
     for group_index in reversed(range(2, 5)):
       if segment.group(group_index) is not None:
         chunks.append((segment.group(group_index), "NS"))
-
+        
     # khmer characters
     if segment.group(1) is not None:
       for grapheme in re.finditer(r"([\u1780-\u17FF](\u17d2[\u1780-\u17FF]|[\u17B6-\u17D1\u17D3\u17DD])*)", segment.group(1)):
@@ -29,16 +29,10 @@ def tokenize(model, text):
 
   with torch.no_grad():
     inputs = torch.tensor(x).unsqueeze(0).long()
-    h = model.init_hidden(1)
-    val_h = tuple([each.data for each in h])
-    pred, _ = model(inputs, val_h)
-    pred = torch.sigmoid(pred.cpu())
-    pred[pred<0.5] = 0.
-    pred[pred>=0.5] = 1.
-    pred = pred.int().tolist()
+    pred = model(inputs).tolist() 
     tokens = []
     for i, (grapheme, tag) in enumerate(zip(graphemes, pred)):
-      if tag == 1 or i == 0:
+      if tag >= 0.5 or i == 0:
         tokens.append(grapheme)
       else:
         tokens[-1] += grapheme
