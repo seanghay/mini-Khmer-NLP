@@ -2,7 +2,7 @@ A mini version of [KhmerNLP](https://github.com/rinabuoy/KhmerNLP/) with LSTM on
 
 ```shell
 python inference.py
-# => ['ចំណែក', 'ជើង', 'ទី', '២', ' ', 'នឹង', 'ត្រូវ', 'ធ្វើឡើង', 'ឯ', 'ប្រទេស', 'កាតា', '៕']
+['ចំណែក', 'ជើង', 'ទី', '២', ' ', 'Cambodia', ' ', 'Kindom', ' ', 'of', ' ', 'Wonder', ' ', 'នឹង', 'ត្រូវ', 'ធ្វើឡើង', 'ឯ', 'ប្រទេស', 'កាតា', '៕ ', 'Tel:', ' ', '010123123', ' ', '🇰🇭']
 ```
 > Most of the code here were taken from [KhmerNLP](https://github.com/rinabuoy/KhmerNLP/) repository.
 
